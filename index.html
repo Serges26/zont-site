@@ -3,205 +3,381 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Zont Автоматика</title>
+  <title>Zont Автоматика | Умные решения для дома</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --primary: #0066cc;
+      --primary-dark: #0052a3;
+      --secondary: #00a8e8;
+      --accent: #ff6b35;
+      --dark: #1a2930;
+      --light: #f5f7fa;
+      --gray: #e0e5ec;
+      --text: #333333;
+      --text-light: #666666;
+    }
+    
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: #eaeef5;
-      color: #ffffff;
+      font-family: 'Roboto', sans-serif;
+      background: var(--light);
+      color: var(--text);
       font-size: 18px;
+      line-height: 1.6;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      color: var(--dark);
     }
 
     header {
-      background: #001f3f;
-      color: white;
+      background: white;
+      box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
       position: sticky;
       top: 0;
       z-index: 1000;
+      transition: all 0.3s ease;
+    }
+
+    header.scrolled {
+      padding: 5px 0;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     }
 
     .top-bar {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 10px 20px;
+      padding: 15px 5%;
       flex-wrap: wrap;
+      max-width: 1400px;
+      margin: 0 auto;
     }
 
     .logo {
       flex: 1;
-      text-align: center;
+      min-width: 200px;
     }
 
     .logo img {
       height: 50px;
+      transition: all 0.3s ease;
+    }
+
+    header.scrolled .logo img {
+      height: 40px;
     }
 
     .contacts {
       text-align: right;
       font-size: 16px;
       flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .contacts a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .contacts a:hover {
+      color: var(--accent);
     }
 
     .hero {
-      background: linear-gradient(to right, #001f3f, #003366);
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
       color: white;
-      padding: 50px 20px;
+      padding: 100px 20px;
       text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path fill="rgba(255,255,255,0.05)" d="M0,0 L100,0 L100,100 L0,100 Z" /></svg>');
+      background-size: cover;
+      opacity: 0.3;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+      margin: 0 auto;
     }
 
     .hero h1 {
       margin-bottom: 20px;
-      font-size: 36px;
+      font-size: 2.8rem;
+      font-weight: 700;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+      opacity: 0.9;
     }
 
     .section {
-      padding: 40px 20px;
+      padding: 80px 5%;
       max-width: 1200px;
       margin: auto;
-      color: #001f3f;
     }
 
     .section h2 {
       text-align: center;
-      margin-bottom: 30px;
-      font-size: 28px;
-      color: #001f3f;
+      margin-bottom: 50px;
+      font-size: 2.2rem;
+      position: relative;
+      display: inline-block;
+      left: 50%;
+      transform: translateX(-50%);
     }
+
+    .section h2::after {
+      content: '';
+      position: absolute;
+      bottom: -15px;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(to right, var(--primary), var(--accent));
+      border-radius: 2px;
+    }
+
     .steps-container {
-    display: flex;
-    justify-content: space-between;
-    gap: 30px;
-    margin-top: 40px;
-    position: relative;
-    flex-wrap: wrap;
+      display: flex;
+      justify-content: space-between;
+      gap: 40px;
+      margin-top: 60px;
+      position: relative;
+      flex-wrap: wrap;
     }
 
     .step-block {
-    flex: 1;
-    min-width: 250px;
-    text-align: center;
-    position: relative;
-    padding: 0 15px;
+      flex: 1;
+      min-width: 250px;
+      text-align: center;
+      position: relative;
+      padding: 30px;
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .step-block:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
     }
 
     .step-block h3 {
-    margin-top: 15px;
-    font-size: 20px;
-    color: #001f3f;
+      margin-top: 25px;
+      font-size: 1.4rem;
+      color: var(--dark);
     }
 
     .step-block p {
-    margin-top: 10px;
-    font-size: 16px;
-    color: #555;
+      margin-top: 15px;
+      font-size: 1rem;
+      color: var(--text-light);
     }
 
     .circle {
-    width: 40px;
-    height: 40px;
-    background: #001f3f;
-    color: white;
-    font-weight: bold;
-    font-size: 18px;
-    line-height: 40px;
-    border-radius: 50%;
-    margin: 0 auto;
-    position: relative;
-    z-index: 1;
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      font-weight: bold;
+      font-size: 24px;
+      line-height: 60px;
+      border-radius: 50%;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+      box-shadow: 0 5px 15px rgba(0, 104, 201, 0.3);
     }
 
-    .steps-container::before {
-    content: '';
-    position: absolute;
-    top: 20px;
-    left: 10%;
-    right: 10%;
-    height: 2px;
-    background: #ccc;
-    z-index: 0;
+    .image-text-block {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 50px;
+      margin: 40px 0;
     }
 
-    @media (max-width: 768px) {
-    .steps-container {
-        flex-direction: column;
-        align-items: center;
+    .image-text-block img {
+      width: 100%;
+      max-width: 500px;
+      height: auto;
+      border-radius: 15px;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
     }
 
-    .steps-container::before {
-        display: none;
+    .image-text-block img:hover {
+      transform: scale(1.02);
     }
 
-    .step-block {
-        margin-bottom: 30px;
+    .image-text-block .text {
+      flex: 1;
+      min-width: 300px;
     }
+
+    .image-text-block .text p {
+      margin-bottom: 20px;
+      color: var(--text-light);
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      margin-top: 50px;
+    }
+
+    .feature-card {
+      background: white;
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      transition: all 0.3s ease;
+      border-top: 4px solid var(--primary);
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+    }
+
+    .feature-card h3 {
+      color: var(--primary);
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .feature-card h3::before {
+      content: '✓';
+      color: var(--accent);
+      font-weight: bold;
     }
 
     .gallery {
-  width: 100%;
-  padding: 20px;
-  box-sizing: border-box;
-}
+      width: 100%;
+      padding: 20px 0;
+      box-sizing: border-box;
+    }
 
-.photo-grid {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  grid-auto-rows: minmax(160px, auto);
-  gap: 10px;
-}
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      grid-auto-rows: minmax(200px, auto);
+      gap: 15px;
+    }
 
-.photo-grid img {
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-  border-radius: 10px;
-  transition: transform 0.3s ease;
-}
+    .photo-grid img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 10px;
+      transition: all 0.3s ease;
+      filter: grayscale(20%);
+    }
 
-.photo-grid img:hover {
-  transform: scale(1.03);
-}
+    .photo-grid img:hover {
+      transform: scale(1.03);
+      filter: grayscale(0%);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
 
     .reviews {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 25px;
+      margin-top: 50px;
     }
 
     .review {
-      background: #e6f0fa;
-      border-left: 5px solid #001f3f;
-      padding: 15px;
-      border-radius: 5px;
-      color: #001f3f;
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      position: relative;
+      border-left: 5px solid var(--accent);
+    }
+
+    .review::before {
+      content: '"';
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      font-size: 80px;
+      color: rgba(0, 104, 201, 0.1);
+      font-family: serif;
+      line-height: 1;
+    }
+
+    .review strong {
+      display: block;
+      margin-bottom: 10px;
+      color: var(--primary);
     }
 
     .contact-buttons {
       display: flex;
       justify-content: center;
-      gap: 15px;
+      gap: 20px;
       flex-wrap: wrap;
-      margin: 30px 0;
+      margin: 50px 0;
     }
 
     .contact-buttons a {
-      display: inline-block;
-      padding: 12px 25px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 15px 30px;
       color: white;
       text-decoration: none;
-      border-radius: 8px;
-      font-weight: bold;
+      border-radius: 50px;
+      font-weight: 600;
       font-size: 18px;
-      box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+      min-width: 200px;
+      gap: 10px;
+    }
+
+    .contact-buttons a i {
+      font-size: 20px;
     }
 
     .call-button {
-      background: #001f3f;
+      background: var(--primary);
     }
 
     .call-button:hover {
-      background: #003366;
+      background: var(--primary-dark);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0, 104, 201, 0.3);
     }
 
     .telegram-button {
@@ -210,6 +386,8 @@
 
     .telegram-button:hover {
       background: #0077b3;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0, 136, 204, 0.3);
     }
 
     .whatsapp-button {
@@ -218,107 +396,296 @@
 
     .whatsapp-button:hover {
       background: #1ebe57;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(37, 211, 102, 0.3);
+    }
+
+    .cta-section {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      padding: 80px 20px;
+      text-align: center;
+      border-radius: 15px;
+      margin: 80px 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path fill="rgba(255,255,255,0.05)" d="M0,0 L100,0 L100,100 L0,100 Z" /></svg>');
+      background-size: cover;
+      opacity: 0.3;
+    }
+
+    .cta-content {
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .cta-section h2 {
+      color: white;
+      margin-bottom: 20px;
+      font-size: 2.2rem;
+    }
+
+    .cta-section p {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+      opacity: 0.9;
     }
 
     footer {
-      background: #001f3f;
+      background: var(--dark);
       color: white;
-      text-align: center;
-      padding: 20px;
-      margin-top: 40px;
+      padding: 60px 5% 30px;
+      margin-top: 80px;
     }
 
-    .footer-buttons {
-      margin-top: 15px;
+    .footer-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .footer-column h3 {
+      color: white;
+      margin-bottom: 20px;
+      font-size: 1.3rem;
+      position: relative;
+      padding-bottom: 10px;
+    }
+
+    .footer-column h3::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 50px;
+      height: 3px;
+      background: var(--accent);
+    }
+
+    .footer-column p, .footer-column a {
+      color: rgba(255, 255, 255, 0.7);
+      margin-bottom: 15px;
+      display: block;
+      transition: color 0.2s;
+      text-decoration: none;
+    }
+
+    .footer-column a:hover {
+      color: white;
+    }
+
+    .social-links {
       display: flex;
-      justify-content: center;
       gap: 15px;
-      flex-wrap: wrap;
+      margin-top: 20px;
     }
 
+    .social-links a {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+
+    .social-links a:hover {
+      background: var(--accent);
+      transform: translateY(-3px);
+    }
+
+    .copyright {
+      text-align: center;
+      margin-top: 50px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 14px;
+    }
+
+    /* Анимации */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .fade-in {
+      animation: fadeIn 1s ease forwards;
+    }
+
+    .delay-1 { animation-delay: 0.2s; }
+    .delay-2 { animation-delay: 0.4s; }
+    .delay-3 { animation-delay: 0.6s; }
+
+    /* Адаптивность */
     @media (max-width: 1024px) {
-      .gallery {
-        grid-template-columns: repeat(3, 1fr);
+      .hero h1 {
+        font-size: 2.4rem;
+      }
+      
+      .section {
+        padding: 60px 5%;
       }
     }
 
     @media (max-width: 768px) {
       .top-bar {
         flex-direction: column;
-        text-align: center;
+        gap: 15px;
       }
+      
       .contacts {
         text-align: center;
-        margin-top: 10px;
       }
-      .gallery {
-        grid-template-columns: repeat(2, 1fr);
+      
+      .hero {
+        padding: 80px 20px;
       }
-      .contact-buttons,
-      .footer-buttons {
+      
+      .hero h1 {
+        font-size: 2rem;
+      }
+      
+      .image-text-block {
+        flex-direction: column;
+        text-align: center;
+      }
+      
+      .contact-buttons {
         flex-direction: column;
         align-items: center;
       }
+      
+      .contact-buttons a {
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .section h2 {
+        font-size: 1.8rem;
+      }
+      
+      .step-block {
+        min-width: 100%;
+      }
+      
+      .photo-grid {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
 
-  <header>
+  <header id="header">
     <div class="top-bar">
       <div class="logo">
         <img src="images/logo.jpeg" alt="Zont Автоматика">
       </div>
       <div class="contacts">
-        <div>+7 (123) 456-78-90</div>
-        <div>info@zont-auto.ru</div>
+        <a href="tel:+71234567890"><i class="fas fa-phone"></i> +7 (123) 456-78-90</a>
+        <a href="mailto:info@zont-auto.ru"><i class="fas fa-envelope"></i> info@zont-auto.ru</a>
       </div>
     </div>
   </header>
 
   <section class="hero">
-    <h1>Установка автоматики Zont</h1>
-    <p>Надежные и умные решения для вашего дома и бизнеса</p>
+    <div class="hero-content">
+      <h1 class="fade-in">Умный дом с автоматикой ZONT</h1>
+      <p class="fade-in delay-1">Инновационные решения для комфорта и безопасности вашего дома</p>
+      <div class="contact-buttons fade-in delay-2">
+        <a class="call-button" href="tel:+71234567890"><i class="fas fa-phone"></i> Бесплатная консультация</a>
+      </div>
+    </div>
   </section>
 
   <section class="section" id="about">
-    <h2>Что такое автоматика ZONT?</h2>
-    <p>
-      Системы автоматики ZONT — это современные устройства для управления отоплением, контролем доступа,
-      видеонаблюдением и другими элементами умного дома. Они позволяют управлять системой через интернет
-      с помощью мобильного приложения или веб-интерфейса.
+    <h2>Преимущества ZONT</h2>
+    <p style="text-align: center; max-width: 800px; margin: 0 auto 40px;">
+      Системы автоматики ZONT — это современные интеллектуальные решения для управления всеми аспектами вашего дома: от отопления и безопасности до мультимедиа и освещения.
     </p>
+    
+    <div class="features-grid">
+      <div class="feature-card fade-in">
+        <h3>Удалённое управление</h3>
+        <p>Контролируйте свой дом из любой точки мира через мобильное приложение или веб-интерфейс.</p>
+      </div>
+      <div class="feature-card fade-in delay-1">
+        <h3>Энергоэффективность</h3>
+        <p>Оптимизация расходов на отопление и электричество до 30% благодаря интеллектуальному управлению.</p>
+      </div>
+      <div class="feature-card fade-in delay-2">
+        <h3>Безопасность</h3>
+        <p>Круглосуточный мониторинг и мгновенные уведомления о нештатных ситуациях.</p>
+      </div>
+      <div class="feature-card fade-in delay-1">
+        <h3>Интеграция</h3>
+        <p>Совместимость с большинством популярных систем умного дома и IoT-устройств.</p>
+      </div>
+      <div class="feature-card fade-in delay-2">
+        <h3>Простота</h3>
+        <p>Интуитивно понятный интерфейс и простая настройка под ваши потребности.</p>
+      </div>
+      <div class="feature-card fade-in delay-3">
+        <h3>Надёжность</h3>
+        <p>Промышленные компоненты и резервирование критически важных функций.</p>
+      </div>
+    </div>
   </section>
 
   <section class="section" id="why-us">
     <h2>Почему выбирают нас</h2>
-    <p style="text-align:center; max-width: 800px; margin: auto;">
-      Мы занимаемся профессиональной установкой и настройкой систем 
-      автоматики Zont для дома — от управления отоплением и электроприборами до контроля 
-      температуры и безопасности. Предлагаем индивидуальные решения с учётом особенностей вашего дома и потребностей. 
-      Работаем аккуратно, чётко и в срок, без скрытых платежей. Гарантируем поддержку после установки: 
-      дистанционная настройка, консультации и обновления. Нас выбирают за опыт, 
-      честность и надёжность — более [указать количество] успешно реализованных проектов и довольных клиентов.
-    </p>
+    <div class="image-text-block">
+      <img src="images/foto.jpeg" alt="Монтаж ZONT" class="fade-in" />
+      <div class="text fade-in delay-1">
+        <h3 style="margin-top: 0;">Профессионализм и опыт</h3>
+        <p>Мы специализируемся на установке и настройке систем автоматики ZONT более 7 лет, реализовав свыше 200 успешных проектов.</p>
+        <p>Наши инженеры проходят регулярное обучение и сертификацию у производителя оборудования.</p>
+        <p>Предлагаем индивидуальные решения, учитывающие архитектурные особенности вашего дома и ваши персональные потребности.</p>
+        <p>Гарантируем аккуратность монтажа, соблюдение сроков и отсутствие скрытых платежей.</p>
+      </div>
+    </div>
   </section>
 
   <section class="section" id="buy-process">
-    <h2 style="text-align: center;">Как происходит покупка нашего оборудования</h2>
+    <h2>Как мы работаем</h2>
     <div class="steps-container">
-      <div class="step-block">
+      <div class="step-block fade-in">
         <div class="circle">1</div>
-        <h3>Выбор устройств и согласование условий</h3>
-        <p>Менеджер проконсультирует Вас, составит коммерческое предложение и подберет оптимальное оборудование под Ваши задачи.</p>
+        <h3>Консультация</h3>
+        <p>Наш специалист детально изучит ваши потребности, предложит оптимальное решение и подготовит индивидуальное коммерческое предложение.</p>
       </div>
-      <div class="step-block">
+      <div class="step-block fade-in delay-1">
         <div class="circle">2</div>
-        <h3>Монтаж оборудования</h3>
-        <p>В удобное Вам время мастер установит систему, даст подробные инструкции по ее использованию.</p>
+        <h3>Проектирование</h3>
+        <p>Разрабатываем детальный проект системы с учётом всех технических нюансов вашего дома и согласовываем его с вами.</p>
       </div>
-      <div class="step-block">
+      <div class="step-block fade-in delay-2">
         <div class="circle">3</div>
-        <h3>Круглосуточный мониторинг</h3>
-        <p>Мониторинг и контроль безопасности 24 часа в сутки. В случае возникновения ситуации — Вы будете уведомлены.</p>
+        <h3>Монтаж</h3>
+        <p>Опытные мастера аккуратно установят оборудование в удобное для вас время, соблюдая все технические стандарты.</p>
+      </div>
+      <div class="step-block fade-in delay-3">
+        <div class="circle">4</div>
+        <h3>Обучение</h3>
+        <p>Проведём подробный инструктаж по использованию системы и предоставим круглосуточную техническую поддержку.</p>
       </div>
     </div>
   </section>
@@ -327,21 +694,18 @@
     <h2>Наши работы</h2>
     <div class="gallery">
       <div class="photo-grid">
-        <img src="images/1.jpeg" alt="Пример 1" />
-        <img src="images/2.jpeg" alt="Пример 2" />
-        <img src="images/3.jpeg" alt="Пример 3" />
-        <img src="images/4.jpeg" alt="Пример 4" />
-        <img src="images/5.jpeg" alt="Пример 5" />
-        <img src="images/6.jpeg" alt="Пример 6" />
-        <img src="images/7.jpeg" alt="Пример 7" />
-        <img src="images/8.jpeg" alt="Пример 8" />
-        <img src="images/9.jpeg" alt="Пример 9" />
-        <img src="images/10.jpeg" alt="Пример 10" />
-        <img src="images/11.jpeg" alt="Пример 11" />
-        <img src="images/12.jpeg" alt="Пример 12" />
-        <img src="images/13.jpeg" alt="Пример 13" />
-        <img src="images/14.jpeg" alt="Пример 14" />
-        <img src="images/15.jpeg" alt="Пример 15" />
+        <img src="images/1.jpeg" alt="Пример установки ZONT" class="fade-in" />
+        <img src="images/2.jpeg" alt="Умный дом ZONT" class="fade-in delay-1" />
+        <img src="images/3.jpeg" alt="Автоматика ZONT" class="fade-in delay-2" />
+        <img src="images/4.jpeg" alt="Монтаж ZONT" class="fade-in delay-1" />
+        <img src="images/5.jpeg" alt="Система управления ZONT" class="fade-in delay-2" />
+        <img src="images/6.jpeg" alt="Контроль доступа ZONT" class="fade-in delay-3" />
+        <img src="images/7.jpeg" alt="Управление освещением" class="fade-in" />
+        <img src="images/8.jpeg" alt="Терморегуляция ZONT" class="fade-in delay-1" />
+        <img src="images/9.jpeg" alt="Панель управления" class="fade-in delay-2" />
+        <img src="images/10.jpeg" alt="Установка оборудования" class="fade-in delay-3" />
+        <img src="images/11.jpeg" alt="Интеграция систем" class="fade-in delay-1" />
+        <img src="images/12.jpeg" alt="Готовый проект" class="fade-in delay-2" />
       </div>
     </div>
   </section>
@@ -349,32 +713,92 @@
   <section class="section" id="reviews">
     <h2>Отзывы клиентов</h2>
     <div class="reviews">
-      <div class="review">
-        <strong>Иван П.</strong>: «Отличная работа! Все быстро, чисто и понятно. Теперь управляю воротами через телефон!»
+      <div class="review fade-in">
+        <strong>Иван Петров</strong>
+        <p>«Установили систему управления отоплением в загородном доме. Теперь могу дистанционно контролировать температуру перед приездом. Работает безупречно уже 2 года, экономия на отоплении около 25%. Спасибо за качественную работу!»</p>
       </div>
-      <div class="review">
-        <strong>Елена К.</strong>: «Профессиональный подход. Помогли выбрать оборудование, установили в срок.»
+      <div class="review fade-in delay-1">
+        <strong>Елена Смирнова</strong>
+        <p>«Очень довольна автоматикой для ворот и освещения. Сотрудники компании проявили себя как настоящие профессионалы - всё объяснили, показали, сделали аккуратно и в срок. Особенно радует русскоязычная техподдержка, которая всегда на связи.»</p>
       </div>
-      <div class="review">
-        <strong>Сергей М.</strong>: «Очень доволен установкой. Работает без сбоев уже 2 года.»
+      <div class="review fade-in delay-2">
+        <strong>Алексей Козлов</strong>
+        <p>«Как владелец небольшого офиса оценил систему безопасности ZONT. Камеры, датчики движения и протечки воды - всё в одном приложении. При возникновении проблем специалисты оперативно подключились удалённо и всё исправили. Рекомендую!»</p>
       </div>
     </div>
   </section>
 
-  <div class="contact-buttons">
-    <a class="call-button" href="tel:+71234567890">Позвонить сейчас</a>
-    <a class="telegram-button" href="https://t.me/ваш_ник" target="_blank">Telegram</a>
-    <a class="whatsapp-button" href="https://wa.me/71234567890" target="_blank">WhatsApp</a>
-  </div>
+  <section class="cta-section">
+    <div class="cta-content">
+      <h2 class="fade-in">Готовы сделать ваш дом умным?</h2>
+      <p class="fade-in delay-1">Оставьте заявку и получите бесплатную консультацию нашего специалиста</p>
+      <div class="contact-buttons fade-in delay-2">
+        <a class="call-button" href="tel:+71234567890"><i class="fas fa-phone"></i> Позвонить сейчас</a>
+        <a class="telegram-button" href="https://t.me/ваш_ник" target="_blank"><i class="fab fa-telegram"></i> Telegram</a>
+        <a class="whatsapp-button" href="https://wa.me/71234567890" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+      </div>
+    </div>
+  </section>
 
   <footer id="contacts">
-    <p>Контакты: +7 (123) 456-78-90 | info@zont-auto.ru</p>
-    <div class="footer-buttons">
-      <a class="telegram-button" href="https://t.me/ваш_ник" target="_blank">Telegram</a>
-      <a class="whatsapp-button" href="https://wa.me/71234567890" target="_blank">WhatsApp</a>
+    <div class="footer-content">
+      <div class="footer-column">
+        <h3>ZONT Автоматика</h3>
+        <p>Профессиональная установка и настройка систем умного дома ZONT в Москве и области.</p>
+        <div class="social-links">
+          <a href="https://t.me/ваш_ник" target="_blank"><i class="fab fa-telegram"></i></a>
+          <a href="https://wa.me/71234567890" target="_blank"><i class="fab fa-whatsapp"></i></a>
+        </div>
+      </div>
+      <div class="footer-column">
+        <h3>Контакты</h3>
+        <a href="tel:+71234567890"><i class="fas fa-phone"></i> +7 (123) 456-78-90</a>
+        <a href="mailto:info@zont-auto.ru"><i class="fas fa-envelope"></i> info@zont-auto.ru</a>
+        <p><i class="fas fa-map-marker-alt"></i> Москва, ул. Примерная, 123</p>
+        <p><i class="fas fa-clock"></i> Пн-Пт: 9:00 - 18:00</p>
+      </div>
+      <div class="footer-column">
+        <h3>Услуги</h3>
+        <a href="#">Умное отопление</a>
+        <a href="#">Управление освещением</a>
+        <a href="#">Системы безопасности</a>
+        <a href="#">Контроль доступа</a>
+        <a href="#">Техническое обслуживание</a>
+      </div>
     </div>
-    <p style="margin-top: 10px;">© 2025 Установка Zont</p>
+    <div class="copyright">
+      <p>© 2023 ZONT Автоматика. Все права защищены.</p>
+    </div>
   </footer>
+
+  <script>
+    // Анимация при скролле
+    window.addEventListener('scroll', function() {
+      const header = document.getElementById('header');
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+      
+      // Анимация элементов при появлении в viewport
+      const elements = document.querySelectorAll('.fade-in:not(.animated)');
+      elements.forEach(element => {
+        const elementPosition = element.getBoundingClientRect().top;
+        const screenPosition = window.innerHeight / 1.2;
+        
+        if(elementPosition < screenPosition) {
+          element.classList.add('animated');
+        }
+      });
+    });
+    
+    // Запускаем проверку при загрузке страницы
+    window.addEventListener('load', function() {
+      const event = new Event('scroll');
+      window.dispatchEvent(event);
+    });
+  </script>
 
 </body>
 </html>
