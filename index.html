@@ -114,6 +114,118 @@
     .contacts a:hover {
       color: var(--accent);
     }
+    .nav-menu {
+  background-color: white;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  padding: 15px 5%;
+  font-weight: 500;
+  font-size: 16px;
+}
+
+/* По умолчанию (для десктопа) */
+#about,
+#buy-process,
+#catalog,
+#services,
+#reviews,
+#feedback {
+  scroll-margin-top: 13vh;
+}
+
+/* Для мобильных экранов — уменьшаем отступ */
+@media (max-width: 768px) {
+  #about,
+  #buy-process,
+  #catalog,
+  #services,
+  #reviews,
+  #feedback {
+    scroll-margin-top: 13vh;
+  }
+}
+
+.nav-menu a {
+  color: var(--primary);
+  text-decoration: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  transition: background 0.2s;
+}
+
+.nav-menu a:hover {
+  background: var(--gray);
+}
+
+/* Мобильная адаптация */
+@media (max-width: 768px) {
+  .nav-menu {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+}
+
+.promo-banner {
+  width: 100%;
+  background: linear-gradient(135deg, #ff6b35, #ffb347);
+  color: white;
+  text-align: center;
+  padding: 15px 10px; /* Уменьшенный внутренний отступ */
+  margin: 0; /* Убираем внешние отступы */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.promo-content h2 {
+  font-size: 1.4rem;
+  margin: 0 0 6px; /* Сверху убрали */
+  font-weight: 700;
+}
+
+.promo-content p {
+  margin: 0 0 8px;
+  font-size: 1.05rem;
+}
+
+.countdown-timer {
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.promo-button {
+  display: inline-block;
+  background: white;
+  color: #ff6b35;
+  padding: 10px 20px;
+  font-weight: 600;
+  border-radius: 50px;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.promo-button:hover {
+  background: #ffe1cd;
+}
+
+/* 📱 Мобильная адаптация */
+@media (max-width: 600px) {
+  .promo-content h2 {
+    font-size: 1.2rem;
+  }
+  .promo-content p,
+  .countdown-timer {
+    font-size: 1rem;
+  }
+  .promo-button {
+    font-size: 0.95rem;
+    padding: 8px 18px;
+  }
+}
 
     .hero {
       background: linear-gradient(135deg, var(--primary), var(--secondary));
@@ -851,10 +963,28 @@
         <a href="mailto:sda.dom@yandex.ru"><i class="fas fa-envelope"></i> sda.dom@yandex.ru</a>
       </div>
     </div>
+    <nav class="nav-menu" id="navMenu" style="display: none;">
+        <a href="#head">Главная</a>
+        <a href="#about">О нас</a>
+        <a href="#buy-process">Как мы работаем</a>
+        <a href="#catalog">Каталог</a>
+        <a href="#services">Услуги</a>
+        <a href="#feedback">Контакты</a>
+        <a href="#reviews">Отзывы</a>
+        
+      </nav>
   </header>
 
-  <section class="hero">
-    <div class="hero-content">
+  <div class="promo-banner">
+    <div class="promo-content">
+      <h2>🎁 Скидка 10% на монтаж оборудования до конца лета!</h2>
+      <p>Успейте до <strong>31 августа</strong>:</p>
+      <div id="countdown" class="countdown-timer">00д 00ч 00м 00с</div>
+      <a href="#feedback" class="promo-button">Получить скидку</a>
+    </div>
+  </div>
+  <section class="hero" id="head">
+    <div class="hero-content"> 
       <h1 class="fade-in">Умный дом с автоматикой ZONT</h1>
       <p class="fade-in delay-1">Инновационные решения для комфорта и безопасности вашего дома</p>
       <div class="contact-buttons fade-in delay-2">
@@ -938,7 +1068,7 @@
   </section>
 
   <div class="container">
-    <div class="catalog-header">Каталог</div>
+    <div class="catalog-header" id="catalog">Каталог</div>
 
     <div class="category-title">Контроллеры</div>
 
@@ -1017,7 +1147,7 @@
     </div>
 </div>
 
-  <div class="services-container">
+<div class="services-container" id="services">
     <h2 class="services-title">Услуги</h2>
     <ul class="services-list">
         <li>Установка автоматики</li>
@@ -1028,7 +1158,17 @@
         <li>Консультации по оборудованию</li>
     </ul>
 </div>
-  
+<section class="cta-section" id="feedback">
+    <div class="cta-content">
+      <h2 class="fade-in">Готовы сделать ваш дом умным?</h2>
+      <p class="fade-in delay-1">Оставьте заявку и получите бесплатную консультацию нашего специалиста</p>
+      <div class="contact-buttons fade-in delay-2">
+        <a class="call-button" href="tel:+79255332839"><i class="fas fa-phone"></i> Позвонить сейчас</a>
+        <!-- <a class="telegram-button" href="https://t.me/ваш_ник" target="_blank"><i class="fab fa-telegram"></i> Telegram</a> -->
+        <a class="whatsapp-button" href="https://wa.me/79255332839" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+      </div>
+    </div>
+  </section>
   <section class="section" id="examples">
     <h2>Наши работы</h2>
     <div class="gallery">
@@ -1071,17 +1211,7 @@
     </div>
   </section>
 
-  <section class="cta-section">
-    <div class="cta-content">
-      <h2 class="fade-in">Готовы сделать ваш дом умным?</h2>
-      <p class="fade-in delay-1">Оставьте заявку и получите бесплатную консультацию нашего специалиста</p>
-      <div class="contact-buttons fade-in delay-2">
-        <a class="call-button" href="tel:+79255332839"><i class="fas fa-phone"></i> Позвонить сейчас</a>
-        <!-- <a class="telegram-button" href="https://t.me/ваш_ник" target="_blank"><i class="fab fa-telegram"></i> Telegram</a> -->
-        <a class="whatsapp-button" href="https://wa.me/79255332839" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
-      </div>
-    </div>
-  </section>
+  
 
   <footer id="contacts">
     <div class="footer-content">
@@ -1142,6 +1272,38 @@
       window.dispatchEvent(event);
     });
   </script>
-
+<script>
+    document.querySelector('.logo').addEventListener('click', function() {
+      const menu = document.getElementById('navMenu');
+      if (menu.style.display === 'none' || menu.style.display === '') {
+        menu.style.display = 'flex';
+      } else {
+        menu.style.display = 'none';
+      }
+    });
+  </script>
+  <script>
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const deadline = new Date("2025-09-01T00:00:00").getTime(); // ← обновили на 2025
+      const distance = deadline - now;
+  
+      if (distance <= 0) {
+        document.getElementById("countdown").textContent = "Акция завершена";
+        return;
+      }
+  
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((distance / (1000 * 60)) % 60);
+      const seconds = Math.floor((distance / 1000) % 60);
+  
+      document.getElementById("countdown").textContent =
+        `${days}д ${hours}ч ${minutes}м ${seconds}с`;
+    }
+  
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+  </script>
 </body>
 </html>
