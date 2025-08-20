@@ -44,11 +44,9 @@
         box-sizing: border-box;
     }
 
-    
-  img[src*="yandex.ru/cycounter"] {
-    display: none !important;
-  }
-
+    img[src*="yandex.ru/cycounter"] {
+      display: none !important;
+    }
 
     body {
       margin: 0;
@@ -1414,11 +1412,20 @@
     });
   </script>
 <script>
-    document.getElementById('menuToggle').addEventListener('click', function () {
+  document.getElementById('menuToggle').addEventListener('click', function () {
+    const menu = document.getElementById('navMenu');
+    menu.style.display = (menu.style.display === 'none' || menu.style.display === '') ? 'flex' : 'none';
+  });
+
+  // Добавляем обработчик для всех ссылок в меню
+  const menuLinks = document.querySelectorAll('.nav-menu a');
+  menuLinks.forEach(link => {
+    link.addEventListener('click', function() {
       const menu = document.getElementById('navMenu');
-      menu.style.display = (menu.style.display === 'none' || menu.style.display === '') ? 'flex' : 'none';
+      menu.style.display = 'none';
     });
-  </script>
+  });
+</script>
   <script>
     function updateCountdown() {
       const now = new Date().getTime();
